@@ -9,6 +9,7 @@ $(document).ready(function(){
 				placeRegexp:/^[0-9\sa-zēūīāšģķļņ]*$/i,//Check for correct location format (office number - name of place)
 				contactRegexp:/^([0-9]{8}|)///Check for correct phone number or email
 			},
+			formValid = false,//Contain false, if some input field will be incorrect
 			timeoutForMessage,//Will contain timeout, to check if error messages are !visible
 			radioValidation,//Validation for radio buttons
 			radioButtons = [],//All Radio Buttons
@@ -27,8 +28,10 @@ $(document).ready(function(){
 			if(firstValidation.value == true){//If field input is empty / First validation Level
 				$(messageContainer).children("p").text(firstValidation.message);
 				$(messageContainer).fadeIn("slow");//Show Error Message
+				formValid = false;
 			}
 			else{//Go To Second validation level - RegExp match
+				formValid = true;
 				switch($(element).attr("name")){//Need switch loop to know which regExp to use on which field
 					case "date":
 						thirdValidation = true;//I am telling that there will be Third Level Validation
@@ -67,8 +70,10 @@ $(document).ready(function(){
 				if(secondValidation.value == false){//If format is incorrect
 					$(messageContainer).children("p").text(secondValidation.message);
 					$(messageContainer).fadeIn("slow");//Show Message
+					formValid = false;
 				}
 				else{//If format is correct
+				formValid = true;
 					//Check if there is 3rd level to go to
 					if(secondValidation.nextLevelValidation == true){
 						switch(secondValidation.thirdValidationName){//Check, which function to call based on field name
@@ -90,8 +95,10 @@ $(document).ready(function(){
 				if(thirdValidationCheck.value == false){//If format is incorrect
 					$(messageContainer).children("p").text(thirdValidationCheck.message);
 					$(messageContainer).fadeIn("slow");//Show Message
+					formValid = false;
 				}
 				else{
+					formValid = true;
 					$(messageContainer).fadeOut("slow");//Hide Message
 				}
 			}
@@ -110,10 +117,13 @@ $(document).ready(function(){
 		if(radioValidation.value == false){
 			$(".radio-notification").fadeIn("slow");
 			$(".radio-notification > p").text(radioValidation.message);
+			formValid = false;
 		}
 		else{
 			$(".radio-notification").fadeOut("slow");
+			formValid = true;
 		}
+		/* On saveChanges button click display success message
 		timeoutForMessage = setTimeout(function(){//Setting timeout
 			if($(".radio-notification, .notification").is(":visible")){//Checking if some error box is visible
 				$(".succMsg").fadeOut("slow");//Fade Out Success message
@@ -121,6 +131,38 @@ $(document).ready(function(){
 			else{
 				$(".succMsg").fadeIn("slow");
 			}
-		}, 500);//Need to change if not working (500+), works, if timeout interval is 1000, but slow
-	});	
+		}, 200);//Need to change if not working, works, if timeout interval is 500, but slow
+		*/
+		if(formValid == true){//Check if form is valid
+			$(".eventName").append($("input[name='eventName']").val());
+			$(".eventDate").append($("input[name='date']").val());
+			$(".eventTimeFrom").append($("input[name='eventTimeFrom']").val());
+			$(".eventTimeTill").append($("input[name='eventTimeTill']").val());
+			$(".timeInterval").append();//Funkcijas rezultāts, kas aprēķinās laika intervālu, cik stundas/minūtes
+			$(".eventPlace").append($("input[name='eventPlace']").val());
+			$(".responsiblePerson").append($("input[name='eventResponsiblePerson']").val());
+			$(".eventinfo").append($("input[name='eventinfo']").val());
+			$(".projector").append($("input[name='eventProjector']:checked").val());
+			$(".computer").append($("input[name='eventComputer']:checked").val());
+			$(".microphne").append($("input[name='eventMicrophone']:checked").val());
+			$(".sound").append($("input[name='evetntSound']:checked").val());
+			$(".ITProf").append($("input[name='eventIT']:checked").val());
+			if($("input[name='eventComment']").val() == ""){
+				$(".comments").append("Komentāru Nav");
+			}
+			else{
+				$(".comments").append($("input[name='eventComment']").val());
+			}
+			$("#preview").fadeIn("slow");
+		}
+		else{
+			$("#preview").fadeOut("slow");
+		}
+	});
+	$("#saveChanges").click(function(){
+		$("#preview").fadeOut("fast");
+	});
+	$("#makeChanges").click(function(){
+		$("#preview").fadeOut("fast");
+	});
 });
