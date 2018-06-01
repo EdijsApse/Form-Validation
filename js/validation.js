@@ -7,8 +7,10 @@ $(document).ready(function(){
 				timeRegexp:/^[0-9][0-9]:[0-9][0-9]*$/,//Check for correct time format
 				personRegexp:/^[a-zēūīāšģķļņ\s]*$/i,//Check for person name and surname
 				placeRegexp:/^[0-9\sa-zēūīāšģķļņ]*$/i,//Check for correct location format (office number - name of place)
-				contactRegexp:/^([0-9]{8}|)///Check for correct phone number or email
+				contactRegexp:/^([0-9]{8})*$///Check for correct phone number or email
 			},
+			months = ["Janvāris","Februāris","Marts","Aprīlis","Maijs","Jūnījs","Jūlījs","Augusts","Septembris","Novembris","Oktobris","Decembris"],
+			splitedDate,//For preview
 			formValid = false,//Contain false, if some input field will be incorrect
 			radioValidation,//Validation for radio buttons
 			radioButtons = [],//All Radio Buttons
@@ -122,9 +124,10 @@ $(document).ready(function(){
 			$(".radio-notification").fadeOut("slow");
 			formValid = true;
 		}
-		if(formValid == true){//Check if form is valid
+		if(formValid == true || !$(".radio-notification").is(":visible") || !$(".notification").is(":visible")){//Check if form is valid
+			splitedDate = $("input[name='date']").val().split("-");
 			$(".eventName").text("Pasākuma Nosaukums: " + $("input[name='eventName']").val());
-			$(".eventDate").text("Pasākuma Datums: " + $("input[name='date']").val());
+			$(".eventDate").text("Pasākuma Datums: "+splitedDate[0] + ".Gada " + splitedDate[2] + "." + months[splitedDate[1]]);
 			$(".eventTimeFrom").text("Laika Periods No: " + $("input[name='eventTimeFrom']").val());
 			$(".eventTimeTill").text("Laika Periods Līdz: " + $("input[name='eventTimeTill']").val());
 			$(".timeInterval").text("Laika Intervāls: ");//Funkcijas rezultāts, kas aprēķinās laika intervālu, cik stundas/minūtes
