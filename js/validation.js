@@ -134,24 +134,24 @@ $(document).ready(function(){
 		}, 200);//Need to change if not working, works, if timeout interval is 500, but slow
 		*/
 		if(formValid == true){//Check if form is valid
-			$(".eventName").append($("input[name='eventName']").val());
-			$(".eventDate").append($("input[name='date']").val());
-			$(".eventTimeFrom").append($("input[name='eventTimeFrom']").val());
-			$(".eventTimeTill").append($("input[name='eventTimeTill']").val());
-			$(".timeInterval").append();//Funkcijas rezultāts, kas aprēķinās laika intervālu, cik stundas/minūtes
-			$(".eventPlace").append($("input[name='eventPlace']").val());
-			$(".responsiblePerson").append($("input[name='eventResponsiblePerson']").val());
-			$(".eventinfo").append($("input[name='eventinfo']").val());
-			$(".projector").append($("input[name='eventProjector']:checked").val());
-			$(".computer").append($("input[name='eventComputer']:checked").val());
-			$(".microphne").append($("input[name='eventMicrophone']:checked").val());
-			$(".sound").append($("input[name='evetntSound']:checked").val());
-			$(".ITProf").append($("input[name='eventIT']:checked").val());
+			$(".eventName").text("Pasākuma Nosaukums: " + $("input[name='eventName']").val());
+			$(".eventDate").text("Pasākuma Datums: " + $("input[name='date']").val());
+			$(".eventTimeFrom").text("Laika Periods No: " + $("input[name='eventTimeFrom']").val());
+			$(".eventTimeTill").text("Laika Periods Līdz: " + $("input[name='eventTimeTill']").val());
+			$(".timeInterval").text("Laika Intervāls: ");//Funkcijas rezultāts, kas aprēķinās laika intervālu, cik stundas/minūtes
+			$(".eventPlace").text($("input[name='eventPlace']").val());
+			$(".responsiblePerson").text("Pasākuma norises vieta: " + $("input[name='eventResponsiblePerson']").val());
+			$(".eventinfo").text("Atbildīgā persona: " + $("input[name='eventinfo']").val());
+			$(".projector").text("Projektors: " + $("input[name='eventProjector']:checked").val());
+			$(".computer").text("Dators: " + $("input[name='eventComputer']:checked").val());
+			$(".microphne").text("Mikrofons: " + $("input[name='eventMicrophone']:checked").val());
+			$(".sound").text("Skaņa: " + $("input[name='evetntSound']:checked").val());
+			$(".ITProf").text("IT Speciālista Pakalpojumi: " + $("input[name='eventIT']:checked").val());
 			if($("input[name='eventComment']").val() == ""){
-				$(".comments").append("Komentāru Nav");
+				$(".comments").text("Komentāri: Komentāru Nav");
 			}
 			else{
-				$(".comments").append($("input[name='eventComment']").val());
+				$(".comments").text("Komentāri: " + $("input[name='eventComment']").val());
 			}
 			$("#preview").fadeIn("slow");
 		}
