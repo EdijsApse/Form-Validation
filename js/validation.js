@@ -10,7 +10,6 @@ $(document).ready(function(){
 				contactRegexp:/^([0-9]{8}|)///Check for correct phone number or email
 			},
 			formValid = false,//Contain false, if some input field will be incorrect
-			timeoutForMessage,//Will contain timeout, to check if error messages are !visible
 			radioValidation,//Validation for radio buttons
 			radioButtons = [],//All Radio Buttons
 			uniqRadioButtons = [];//Uniq Radio Buttons	
@@ -123,25 +122,15 @@ $(document).ready(function(){
 			$(".radio-notification").fadeOut("slow");
 			formValid = true;
 		}
-		/* On saveChanges button click display success message
-		timeoutForMessage = setTimeout(function(){//Setting timeout
-			if($(".radio-notification, .notification").is(":visible")){//Checking if some error box is visible
-				$(".succMsg").fadeOut("slow");//Fade Out Success message
-			}
-			else{
-				$(".succMsg").fadeIn("slow");
-			}
-		}, 200);//Need to change if not working, works, if timeout interval is 500, but slow
-		*/
 		if(formValid == true){//Check if form is valid
 			$(".eventName").text("Pasākuma Nosaukums: " + $("input[name='eventName']").val());
 			$(".eventDate").text("Pasākuma Datums: " + $("input[name='date']").val());
 			$(".eventTimeFrom").text("Laika Periods No: " + $("input[name='eventTimeFrom']").val());
 			$(".eventTimeTill").text("Laika Periods Līdz: " + $("input[name='eventTimeTill']").val());
 			$(".timeInterval").text("Laika Intervāls: ");//Funkcijas rezultāts, kas aprēķinās laika intervālu, cik stundas/minūtes
-			$(".eventPlace").text($("input[name='eventPlace']").val());
-			$(".responsiblePerson").text("Pasākuma norises vieta: " + $("input[name='eventResponsiblePerson']").val());
-			$(".eventinfo").text("Atbildīgā persona: " + $("input[name='eventinfo']").val());
+			$(".eventPlace").text("Pasākuma norises vieta: " + $("input[name='eventPlace']").val());
+			$(".responsiblePerson").text("Atbildīgā persona: " + $("input[name='eventResponsiblePerson']").val());
+			$(".eventInfo").text("Kontaktinformācija: " + $("input[name='eventinfo']").val());
 			$(".projector").text("Projektors: " + $("input[name='eventProjector']:checked").val());
 			$(".computer").text("Dators: " + $("input[name='eventComputer']:checked").val());
 			$(".microphne").text("Mikrofons: " + $("input[name='eventMicrophone']:checked").val());
@@ -160,6 +149,7 @@ $(document).ready(function(){
 		}
 	});
 	$("#saveChanges").click(function(){
+		$(".succMsg").fadeIn("slow");
 		$("#preview").fadeOut("fast");
 	});
 	$("#makeChanges").click(function(){
