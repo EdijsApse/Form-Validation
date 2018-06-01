@@ -1,5 +1,5 @@
 $(document).ready(function(){	
-	$(".notification, .radio-notification, .errorMsg, .succMsg").hide();
+	$(".notification, .radio-notification, .succMsg").hide();
 	$("#send").click(function(){
 		var regExps = {//Defining all possible RegExp's which will be used
 				defaultRegexp:/^[a-zēūīāšģķļņ0-9\s]*$/i,//Default - Checking for letters and numbers only
@@ -9,6 +9,7 @@ $(document).ready(function(){
 				placeRegexp:/^[0-9\sa-zēūīāšģķļņ]*$/i,//Check for correct location format (office number - name of place)
 				contactRegexp:/^([0-9]{8}|)///Check for correct phone number or email
 			},
+			timeoutForMessage,//Will contain timeout, to check if error messages are !visible
 			radioValidation,//Validation for radio buttons
 			radioButtons = [],//All Radio Buttons
 			uniqRadioButtons = [];//Uniq Radio Buttons	
@@ -113,5 +114,13 @@ $(document).ready(function(){
 		else{
 			$(".radio-notification").fadeOut("slow");
 		}
+		timeoutForMessage = setTimeout(function(){//Setting timeout
+			if($(".radio-notification, .notification").is(":visible")){//Checking if some error box is visible
+				$(".succMsg").fadeOut("slow");//Fade Out Success message
+			}
+			else{
+				$(".succMsg").fadeIn("slow");
+			}
+		}, 500);//Need to change if not working (500+), works, if timeout interval is 1000, but slow
 	});	
 });
