@@ -11,10 +11,11 @@ $(document).ready(function(){
 			},
 			months = ["Janvāris","Februāris","Marts","Aprīlis","Maijs","Jūnījs","Jūlījs","Augusts","Septembris","Novembris","Oktobris","Decembris"],
 			splitedDate,//For preview
+			//fullTime,//For preview, time interval from till
 			formValid = false,//Contain false, if some input field will be incorrect
 			radioValidation,//Validation for radio buttons
 			radioButtons = [],//All Radio Buttons
-			uniqRadioButtons = [];//Uniq Radio Buttons	
+			uniqRadioButtons = [];//Uniq Radio Buttons
 		$("input[type='text']:not('#eventComment')").each(function(index, element) {//Running function for each input type='text' element
             var firstValidation = isEmpty($(element).val()),//Will contain check object
 				secondValidation,
@@ -125,12 +126,12 @@ $(document).ready(function(){
 			formValid = true;
 		}
 		if(formValid == true || !$(".radio-notification").is(":visible") || !$(".notification").is(":visible")){//Check if form is valid
+			fullTime = timeInterval($("input[name='eventTimeFrom']").val(), $("input[name='eventTimeTill']").val());
 			splitedDate = $("input[name='date']").val().split("-");
 			$(".eventName").text("Pasākuma Nosaukums: " + $("input[name='eventName']").val());
 			$(".eventDate").text("Pasākuma Datums: "+splitedDate[0] + ".Gada " + splitedDate[2] + "." + months[splitedDate[1]]);
 			$(".eventTimeFrom").text("Laika Periods No: " + $("input[name='eventTimeFrom']").val());
 			$(".eventTimeTill").text("Laika Periods Līdz: " + $("input[name='eventTimeTill']").val());
-			$(".timeInterval").text("Laika Intervāls: ");//Funkcijas rezultāts, kas aprēķinās laika intervālu, cik stundas/minūtes
 			$(".eventPlace").text("Pasākuma norises vieta: " + $("input[name='eventPlace']").val());
 			$(".responsiblePerson").text("Atbildīgā persona: " + $("input[name='eventResponsiblePerson']").val());
 			$(".eventInfo").text("Kontaktinformācija: " + $("input[name='eventinfo']").val());
